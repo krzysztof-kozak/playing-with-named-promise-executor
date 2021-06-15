@@ -25,7 +25,7 @@ function onrejected() {
   console.log("Oops, looks like we couldn't fetch the data");
 }
 
-const promiseObject = displayInfoFromDb(false, 'user');
+const promiseObject = displayInfoFromDb(true, 'user');
 
 promiseObject
   .then(() => displayInfoFromDb(true, 'user'))
@@ -33,4 +33,7 @@ promiseObject
   .then(displayInfoFromDb.bind(this, false, 'user'))
   .then(displayInfoFromDb.bind(this, true, 'number'))
   .catch(onrejected)
-  .finally(() => console.log(promiseObject));
+  .finally(() => console.log(promiseObject)); // <= this object will 'remember'...
+// ...the [[PromiseState]] from line  28:   (state: fulfilled, result 'tod')
+
+// interesting, I would assume, it would 'remember' and log the status from line 33 (state: rejected, result 'Oops, looks like...')
