@@ -25,12 +25,15 @@ function onrejected() {
   console.log("Oops, looks like we couldn't fetch the data");
 }
 
-displayInfoFromDb(true, 'user')
+const promiseObject = displayInfoFromDb(false, 'user');
+
+promiseObject
   .then(() => displayInfoFromDb(true, 'user'))
   .then(onfulfilled.bind(this, true, 'number'))
   .then(displayInfoFromDb.bind(this, false, 'user'))
   .then(displayInfoFromDb.bind(this, true, 'number'))
-  .catch(onrejected);
+  .catch(onrejected)
+  .finally(() => console.log(promiseObject));
 // Expected output:
 // 1. Wait 3 seconds -> promise resolved -> console log 'tod'        -> chain the next promise
 // 2. Wait 3 seconds -> promise resolved -> console log 'tod         -> chain the next promise
