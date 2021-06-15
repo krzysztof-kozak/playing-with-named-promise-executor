@@ -16,3 +16,12 @@ const longPromise = createUserConsentPromise(10000);
 shortPromise.then(onUserConsent.bind(this, shortPromise), onUserDecline.bind(this, shortPromise));
 
 longPromise.then(onUserConsent.bind(this, longPromise), onUserDecline.bind(this, longPromise));
+
+// frist refactor attemp, testing some stuff
+
+async function getSomeValue() {
+  const userConsent = await createUserConsentPromise(6000);
+  console.log(userConsent);
+}
+
+getSomeValue();
