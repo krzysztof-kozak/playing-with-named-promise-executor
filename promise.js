@@ -13,5 +13,6 @@ const onUserDecline = (promiseObject) => console.log(promiseObject);
 const shortPromise = createUserConsentPromise(3000);
 const longPromise = createUserConsentPromise(10000);
 
-shortPromise.then(onUserConsent.bind(this, shortPromise), onUserDecline);
-longPromise.then(onUserConsent.bind(this, longPromise), onUserDecline);
+shortPromise.then(onUserConsent.bind(this, shortPromise), onUserDecline.bind(this, shortPromise));
+
+longPromise.then(onUserConsent.bind(this, longPromise), onUserDecline.bind(this, longPromise));
