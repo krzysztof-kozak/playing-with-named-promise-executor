@@ -26,10 +26,11 @@ function onrejected() {
 }
 
 displayInfoFromDb(true, 'user')
-  .then(() => displayInfoFromDb(true, 'user'), onrejected)
-  .then(onfulfilled.bind(this, true, 'number'), onrejected)
-  .then(displayInfoFromDb.bind(this, false, 'user'), onrejected)
-  .then(displayInfoFromDb.bind(this, true, 'number'), onrejected);
+  .then(() => displayInfoFromDb(true, 'user'))
+  .then(onfulfilled.bind(this, true, 'number'))
+  .then(displayInfoFromDb.bind(this, false, 'user'))
+  .then(displayInfoFromDb.bind(this, true, 'number'))
+  .catch(onrejected);
 // Expected output:
 // 1. Wait 3 seconds -> promise resolved -> console log 'tod'        -> chain the next promise
 // 2. Wait 3 seconds -> promise resolved -> console log 'tod         -> chain the next promise
