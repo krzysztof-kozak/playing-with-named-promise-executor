@@ -17,10 +17,6 @@ function displayInfoFromDb(arbitrarySuccess, key) {
   });
 }
 
-function onfulfilled(arbitrarySuccess, key) {
-  displayInfoFromDb(arbitrarySuccess, key);
-}
-
 function onrejected() {
   console.log("Oops, looks like we couldn't fetch the data");
 }
