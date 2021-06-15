@@ -4,7 +4,7 @@ const createUserConsentPromise = (duration) => {
       resolve('User consented');
     }, duration);
   }
-  return (userConsentPromise = new Promise(getUserConsent));
+  return new Promise(getUserConsent);
 };
 
 const onUserConsent = (promiseObject) => console.log(promiseObject);
