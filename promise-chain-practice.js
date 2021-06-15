@@ -22,7 +22,7 @@ function onrejected() {
 }
 
 displayInfoFromDb(true, 'user')
-  .then(displayInfoFromDb.bind(this, true, 'user'), onrejected)
+  .then(() => displayInfoFromDb(true, 'user'), onrejected)
   .then(displayInfoFromDb.bind(this, true, 'number'), onrejected)
   .then(displayInfoFromDb.bind(this, false, 'user'), onrejected)
   .then(displayInfoFromDb.bind(this, true, 'number'), onrejected);
