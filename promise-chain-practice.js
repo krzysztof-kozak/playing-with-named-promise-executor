@@ -17,13 +17,17 @@ function displayInfoFromDb(arbitrarySuccess, key) {
   });
 }
 
+function onfulfilled(arbitrarySuccess, key) {
+  return displayInfoFromDb(arbitrarySuccess, key);
+}
+
 function onrejected() {
   console.log("Oops, looks like we couldn't fetch the data");
 }
 
 displayInfoFromDb(true, 'user')
   .then(() => displayInfoFromDb(true, 'user'), onrejected)
-  .then(displayInfoFromDb.bind(this, true, 'number'), onrejected)
+  .then(onfulfilled.bind(this, true, 'number'), onrejected)
   .then(displayInfoFromDb.bind(this, false, 'user'), onrejected)
   .then(displayInfoFromDb.bind(this, true, 'number'), onrejected);
 // Expected output:
