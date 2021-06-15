@@ -34,9 +34,3 @@ promiseObject
   .then(displayInfoFromDb.bind(this, true, 'number'))
   .catch(onrejected)
   .finally(() => console.log(promiseObject));
-// Expected output:
-// 1. Wait 3 seconds -> promise resolved -> console log 'tod'        -> chain the next promise
-// 2. Wait 3 seconds -> promise resolved -> console log 'tod         -> chain the next promise
-// 3. Wait 3 seconds -> promise resolved -> console log  5           -> chain the next promise
-// 4. Wait 3 seconds -> promise rejected -> fire onrejected callback -> do not chain the next promise
-// 5. End.
