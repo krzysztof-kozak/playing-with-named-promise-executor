@@ -1,27 +1,35 @@
-const createUserConsentPromise = (duration) => {
-  function getUserConsent(resolve, reject) {
-    setTimeout(() => {
-      resolve('User consented');
-    }, duration);
+const randomResolution = () => {
+  let num = Math.random() * 2;
+  num = Math.floor(num);
+  if (num === 1) {
+    return true;
+  } else {
+    return false;
   }
-  return new Promise(getUserConsent);
 };
 
-const onUserConsent = (promiseObject) => console.log(promiseObject);
-const onUserDecline = (promiseObject) => console.log(promiseObject);
+const userConsentPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (randomResolution()) {
+      resolve('Granted');
+    } else {
+      reject('Denied');
+    }
+  }, 2000);
+});
 
-const shortPromise = createUserConsentPromise(3000);
-const longPromise = createUserConsentPromise(10000);
-
-shortPromise.then(onUserConsent.bind(this, shortPromise), onUserDecline.bind(this, shortPromise));
-
-longPromise.then(onUserConsent.bind(this, longPromise), onUserDecline.bind(this, longPromise));
-
-// frist refactor attemp, testing some stuff
-
-async function getSomeValue() {
-  const userConsent = await createUserConsentPromise(6000);
-  console.log(userConsent);
+async function getUserConsent() {
+  try {
+    const consent = await userConsentPromise;
+    console.log(consent);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log(userConsentPromise);
+    /*
+      [[PromiseState]]: "rejected" or "fulfilled"
+      [[PromiseResult]]: "Denied" or "Granted"
+    */
+  }
 }
-
-getSomeValue();
+getUserConsent();
