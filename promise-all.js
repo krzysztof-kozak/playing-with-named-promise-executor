@@ -8,26 +8,20 @@ const db = {
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function getItem(key) {
+async function getItem(key, delayInMs) {
   const item = db[key];
-  await delay(2000);
+  await delay(delayInMs);
   return item;
 }
 
 async function getItemsFromSomeAPI() {
-  const dataItem1 = getItem('Some item');
-  const dataItem2 = getItem('Some other item');
-  const items = await Promise.all([dataItem1, dataItem2]);
+  const dataItem1 = getItem('Some item', 4000);
+  const dataItem2 = getItem('Some other item', 2000);
 
-  // dataItem1 and dataItem2 are being fetched at the same time
-  // without blocking execution
+  // item that was rejected or resolved the fastest
+  const item = await Promise.race([dataItem1, dataItem2]);
 
-  // This reduces the time taken by 50%!
-
-  // This will not work if we need value of dataItem1 before dataItem2 (e.g need user id before we can get user logs)
-  // This will work if the items are unrelated and can be fetched independently, at the same time
-
-  return [items];
+  return [item];
 }
 
 getItemsFromSomeAPI().then((result) => log(result));
